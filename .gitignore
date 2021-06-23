@@ -12,7 +12,7 @@
 /build
 
 # api key
-/api_key
+/src/api-key/*
 
 # misc
 .DS_Store
