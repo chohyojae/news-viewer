@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import NewsItem from './NewsItem';
 import axios from 'axios';
+import usePromise from '../lib/usePromise';
 
 import { newsApiKey } from '../api-key/apiKey';
 
@@ -18,17 +19,7 @@ const NewsListBlock = styled.div`
   }
 `;
 
-const sampleArticle = {
-  title: '제목',
-  description: '내용',
-  url: 'https://google.com',
-  urlToImage: 'https://via.placeholder.com/160',
-};
-
 const NewsList = ({ category }) => {
-  const [articles, setArticles] = useState('');
-  const [loading, setLoading] = useState('');
-
   let catQuery = category === 'all' ? '' : `&category=${category}`;
 
   const url =
@@ -37,23 +28,24 @@ const NewsList = ({ category }) => {
     '&apiKey=' +
     newsApiKey();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const response = await axios.get(url);
-        setArticles(response.data.articles);
-      } catch (e) {
-        console.log(e);
-      }
-      setLoading(false);
-    };
-    fetchData();
-  }, [url]);
+  const [loading, response, error] = usePromise(
+    () => axios.get(url),
+    [category],
+  );
 
   if (loading) {
     return <NewsListBlock>대기중...</NewsListBlock>;
   }
+
+  if (!response) {
+    return null;
+  }
+
+  if (error) {
+    return <NewsListBlock>에러 발생!</NewsListBlock>;
+  }
+
+  const { articles } = response.data;
 
   if (!articles) {
     return null;
