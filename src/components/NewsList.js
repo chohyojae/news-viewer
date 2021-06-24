@@ -28,8 +28,13 @@ const sampleArticle = {
 const NewsList = ({ category }) => {
   const [articles, setArticles] = useState('');
   const [loading, setLoading] = useState('');
+
+  let catQuery = category === 'all' ? '' : `&category=${category}`;
+
   const url =
-    'https://newsapi.org/v2/top-headlines?country=kr&category=business&apiKey=' +
+    'https://newsapi.org/v2/top-headlines?country=kr' +
+    catQuery +
+    '&apiKey=' +
     newsApiKey();
 
   useEffect(() => {
