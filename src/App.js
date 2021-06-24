@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import NewsList from './NewsList';
-import axios from '../node_modules/axios/index';
-import { newsApiKey } from './api-key/apiKey';
+import NewsList from './components/NewsList';
+import Categories from './components/Categories';
 
 const App = () => {
-  return <NewsList />;
+  return (
+    <>
+      <Categories />
+      <NewsList />
+    </>
+  );
 };
 
 // const App = () => {

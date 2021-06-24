@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import NewsItem from './NewsItem';
 import axios from 'axios';
 
-import { newsApiKey } from './api-key/apiKey';
+import { newsApiKey } from '../api-key/apiKey';
 
 const NewsListBlock = styled.div`
   box-sizing: border-box;
