@@ -25,7 +25,7 @@ const sampleArticle = {
   urlToImage: 'https://via.placeholder.com/160',
 };
 
-const NewsList = () => {
+const NewsList = ({ category }) => {
   const [articles, setArticles] = useState('');
   const [loading, setLoading] = useState('');
   const url =
